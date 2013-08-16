@@ -50,7 +50,7 @@ exports.isPortOpen = function(hostname, port, timeout, callback) {
 };
 
 exports.getHostName = function(callback) {
-    callback(os.hostname());
+    callback(null,os.hostname());
 };
 
 function asyncRepeat(callback, onDone) {
