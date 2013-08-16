@@ -1,5 +1,6 @@
 var net = require("net");
 var exec = require("child_process").exec;
+var os = require("os");
 
 exports.findFreePort = function(start, end, hostname, callback) {
     var pivot = Math.floor(Math.random() * (end-start)) + start;
@@ -49,12 +50,7 @@ exports.isPortOpen = function(hostname, port, timeout, callback) {
 };
 
 exports.getHostName = function(callback) {
-    exec("hostname", function (error, stdout, stderr) {
-        if (error)
-            return callback(stderr);
-
-        callback(null, stdout.toString().split("\n")[0]);
-    });
+    callback(os.hostname());
 };
 
 function asyncRepeat(callback, onDone) {
