@@ -1,8 +1,10 @@
 var net = require("net");
 var exec = require("child_process").exec;
 
-exports.findFreePort = function(start, end, hostname, callback) {
-    var pivot = Math.floor(Math.random() * (end-start)) + start;
+exports.findFreePort = function(start, end, pivot, hostname, callback) {
+    if (!callback)
+        return exports.findFreePort(start, end, Math.floor(Math.random() * (end-start)) + start, pivot, hostname);
+        
     var port = pivot;
     asyncRepeat(function(next, done) {
         var stream = net.createConnection(port, hostname);
@@ -62,4 +64,3 @@ function asyncRepeat(callback, onDone) {
         asyncRepeat(callback, onDone);
     }, onDone);
 }
-
